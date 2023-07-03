@@ -1,0 +1,32 @@
+.profile__img-button{
+    margin: 0;
+    padding: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 0;
+    position: relative;
+}
+@media screen and (max-width: 700px) {
+    .profile__img-button{
+        margin-bottom: 26px;
+        grid-area: profile__avatar;
+    }
+}
+.profile__img-button::after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../../../images/pensil.svg) no-repeat transparent center;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-size: 26px 26px;
+    height: 100%;
+    width: 100%;
+    content: '';
+    opacity: 0;
+}
+.profile__img-button:hover:after{
+    opacity: 1;
+    transition: opacity 0.3s;
+    cursor: pointer;
+}

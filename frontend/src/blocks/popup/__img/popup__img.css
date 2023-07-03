@@ -1,0 +1,7 @@
+.popup__img{
+    margin: 0;
+    padding: 0;
+    display: block;
+    max-width: inherit;
+    max-height: inherit;
+}

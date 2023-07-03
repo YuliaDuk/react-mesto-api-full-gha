@@ -1,0 +1,24 @@
+.element__like{
+    margin: 0 0 3px 0;
+    padding: 0;
+    width: 22px;
+    height: 19px;
+    transition: opacity 0.7s;
+    background-image: url(../../../images/white-like.svg);
+    background-position: right;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    align-self: center;
+}
+.element__like:hover:active{
+   background-image: url(../../../images/like.svg);
+   opacity: 1;
+}
+@media (hover){
+    .element__like:hover{
+        opacity: 0.5;
+        cursor: pointer;
+}
+}

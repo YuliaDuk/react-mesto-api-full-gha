@@ -1,0 +1,6 @@
+.content{
+    margin: 0 auto;
+    padding: 0;
+    flex-grow: 1;
+    width: 100%;
+}
