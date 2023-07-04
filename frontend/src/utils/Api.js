@@ -105,6 +105,8 @@ class Api {
         return res.json()
     }
 }
-const api = new Api({baseUrl: 'http://localhost:4000', 
+const api = new Api({
+    // baseUrl: 'http://localhost:4000',
+    baseUrl: 'https://api.yuliaduk.nomoreparties.sbs' 
 });
 export default api

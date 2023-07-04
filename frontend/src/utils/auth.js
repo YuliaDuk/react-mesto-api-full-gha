@@ -1,5 +1,6 @@
 import checkResponse from "./checkResponse";
-export const BASE_URL = "http://localhost:4000";
+// export const BASE_URL = "http://localhost:4000";
+export const BASE_URL = 'https://api.yuliaduk.nomoreparties.sbs'
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {

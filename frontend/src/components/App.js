@@ -44,7 +44,7 @@ function App() {
         setCards(res.reverse());
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [loggedIn]);
   useEffect(() => {
     tokenCheck();
   }, []);
