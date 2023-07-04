@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.111.70
+IP-адрес IP 158.160.111.70
 
 Frontend https://yuliaduk.nomoreparties.sbs
 
