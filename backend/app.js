@@ -11,7 +11,7 @@ const cors = require('cors');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
-
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
 
 const auth = require('./middlewares/auth');
@@ -28,7 +28,7 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(requestLogger);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -48,7 +48,7 @@ app.post('/signin', celebrate({
 app.use(auth);
 
 app.use(routes);
-
+app.use(errorLogger);
 app.use(errors());
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
