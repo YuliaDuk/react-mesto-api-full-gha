@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 function EditAvatarPopup(props) {
   const avatarRef = useRef();
-
+  
   function handleSubmit(e) {
     e.preventDefault();
     props.onUpdateAvatar({ avatar: avatarRef.current.value });

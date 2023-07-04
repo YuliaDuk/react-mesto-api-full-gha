@@ -1,5 +1,5 @@
 import checkResponse from "./checkResponse";
-export const BASE_URL = "https://auth.nomoreparties.co";
+export const BASE_URL = "http://localhost:4000";
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -31,7 +31,8 @@ export const authorize = (email, password) => {
     });
 };
 
-export const getContent = (token) => {
+export const getContent = () => {
+  const token = localStorage.getItem('token')
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {

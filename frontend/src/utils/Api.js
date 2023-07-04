@@ -1,24 +1,33 @@
 class Api {
-    constructor({baseUrl, headers}){
+    constructor({baseUrl}){
         this._baseUrl = baseUrl
-        this._headers = headers;
     }
     getCards(){
+        const token = localStorage.getItem('token')
          return fetch(`${this._baseUrl}/cards`, {
-            headers: this._headers
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
         })
         .then(this._getResponseData)
     }
     getProfileInfo(){
+        const token = localStorage.getItem('token')
         return fetch(`${this._baseUrl}/users/me`,{
-            headers: this._headers
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
         })
         .then(this._getResponseData)
     }
     redProfile(data){
+        const token = localStorage.getItem('token')
        return fetch(`${this._baseUrl}/users/me`,{
         method: 'PATCH',
-        headers: this._headers,
+        headers: {
+            authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
             name: data.name,
             about: data.about
@@ -27,9 +36,13 @@ class Api {
        .then(this._getResponseData)
     }
     redImgProfile(data){
+        const token = localStorage.getItem('token')
         return fetch(`${this._baseUrl}/users/me/avatar`,{
             method: 'PATCH',
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 avatar: data.avatar,
         })
@@ -37,35 +50,48 @@ class Api {
         .then(this._getResponseData)
     }
     addNewCard({name, link}){
+        const token = localStorage.getItem('token');
          return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
-                name: name,
-                link: link,
+                name,
+                link,
             })
         })
         .then(this._getResponseData)
         
     }
     _addLikes(cardId){
+        const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
             method: 'PUT',
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
         })
         .then(this._getResponseData)
     }
     _removeLikes(cardId){
+        const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
             method: 'DELETE',
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
         })
         .then(this._getResponseData)
     }
     deleteCard(cardId){
+        const token = localStorage.getItem('token');
         return fetch (`${this._baseUrl}/cards/${cardId}`,{
             method: 'DELETE',
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
         })
         .then(this._getResponseData)
     }
@@ -77,11 +103,8 @@ class Api {
             return Promise.reject(`Ошибка: ${res.status}`) 
         }
         return res.json()
-    } 
+    }
 }
-const api = new Api({baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63', 
-headers: {
-  authorization: '56a6b55a-fd33-4c3c-8624-42a430500012',
-  'Content-Type': 'application/json'}
+const api = new Api({baseUrl: 'http://localhost:4000', 
 });
 export default api
