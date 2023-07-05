@@ -28,7 +28,6 @@ const getCards = (req, res, next) => {
 
 const deleteCardById = (req, res, next) => {
   Card.findById(req.params.cardId)
-    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Такой карточки не существует');
@@ -37,16 +36,16 @@ const deleteCardById = (req, res, next) => {
         throw new ForbiddenError('У вас нет прав на удаление этой карточки');
       }
       Card
-        .findByIdAndRemove(req.params.cardId)
+        .deleteOne(card)
         .then((cards) => res.status(STATUS_OK).send(cards))
-        .catch((err) => {
-          if (err.name === 'CastError') {
-            return next(new ValidationError('Некорректный id'));
-          }
-          return next(err);
-        });
+        .catch(next);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new ValidationError('Некорректный id'));
+      }
+      return next(err);
+    });
 };
 
 const likeCard = (req, res, next) => {
@@ -61,18 +60,17 @@ const likeCard = (req, res, next) => {
           { $addToSet: { likes: req.user._id } },
           { new: true },
         )
-        .populate(['likes', 'owner'])
         .then((newcard) => {
           res.status(STATUS_OK).send(newcard);
         })
-        .catch((err) => {
-          if (err.name === 'CastError') {
-            return next(new ValidationError('Некорректный id'));
-          }
-          return next(err);
-        });
+        .catch(next);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new ValidationError('Некорректный id'));
+      }
+      return next(err);
+    });
 };
 
 const dislikeCard = (req, res, next) => {
@@ -87,18 +85,17 @@ const dislikeCard = (req, res, next) => {
           { $pull: { likes: req.user._id } },
           { new: true },
         )
-        .populate(['likes', 'owner'])
         .then((newcard) => {
           res.status(STATUS_OK).send(newcard);
         })
-        .catch((err) => {
-          if (err.name === 'CastError') {
-            return next(new ValidationError('Некорректный id'));
-          }
-          return next(err);
-        });
+        .catch(next);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new ValidationError('Некорректный id'));
+      }
+      return next(err);
+    });
 };
 
 module.exports = {

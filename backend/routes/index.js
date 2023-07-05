@@ -8,7 +8,8 @@ const NotFoundError = require('../errors/NotFoundError');
 
 router.use(userRoutes);
 router.use(cardRoutes);
-router.use('*', () => {
-  throw new NotFoundError('Такая страница не существует');
+router.use('*', (req, res, next) => {
+  next(new NotFoundError('Такая страница не существует'));
 });
+
 module.exports = router;
