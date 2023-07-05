@@ -4,7 +4,7 @@ const express = require('express');
 
 const helmet = require('helmet');
 
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
 
@@ -21,16 +21,15 @@ const auth = require('./middlewares/auth');
 const { PORT = 4000 } = process.env;
 
 const app = express();
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:4000', 'http://api.yuliaduk.nomoreparties.sbs', 'https://api.yuliaduk.nomoreparties.sbs', 'https://yuliaduk.nomoreparties.sbs', 'http://yuliaduk.nomoreparties.sbs'] }));
+app.use(cors());
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
   .then(() => {
     console.log('connected to db');
   });
 
 app.use(helmet());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.get('/crash-test', () => {
   setTimeout(() => {
