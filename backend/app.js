@@ -21,7 +21,7 @@ const auth = require('./middlewares/auth');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:4000', 'http://api.yuliaduk.nomoreparties.sbs', 'https://api.yuliaduk.nomoreparties.sbs', 'https://yuliaduk.nomoreparties.sbs', 'http://yuliaduk.nomoreparties.sbs'] }));
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
   .then(() => {
     console.log('connected to db');
