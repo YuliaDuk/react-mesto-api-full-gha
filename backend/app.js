@@ -4,7 +4,7 @@ const express = require('express');
 
 const helmet = require('helmet');
 
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
 
@@ -28,8 +28,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
   });
 
 app.use(helmet());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(requestLogger);
 app.get('/crash-test', () => {
   setTimeout(() => {
